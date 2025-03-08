@@ -263,7 +263,6 @@ else:
             </style>
         """, unsafe_allow_html=True)
 
-        # Content in Indonesian
         st.markdown("""
             <p class="justify-text">
             Tujuan dari pengembangan dashboard proyek akhir untuk analisis dataset sepeda ini adalah untuk memenuhi persyaratan proyek akhir dalam program pembelajaran Analisis Data dari Dicoding.  
