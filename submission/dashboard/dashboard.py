@@ -9,21 +9,12 @@ import os
 # Set theme
 sns.set_theme(style='dark')
 
-# Define the base directory (sesuaikan dengan struktur folder Anda)
-base_dir = os.getcwd()  # Direktori kerja saat ini
-dashboard_dir = os.path.join(base_dir, "submission", "dashboard")  # Path ke folder dashboard
-
-# Path ke file CSV dan gambar
-csv_path = os.path.join(dashboard_dir, "main_data.csv")
-user_image_path = os.path.join(dashboard_dir, "user.jpg")
-bike_image_path = os.path.join(dashboard_dir, "bike-dataset.jpg")
-
 # Check if main_data.csv exists
-if not os.path.exists(csv_path):
-    st.error(f"File 'main_data.csv' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
+if not os.path.exists('main_data.csv'):
+    st.error("File 'main_data.csv' tidak ditemukan. Pastikan file ada di direktori yang benar.")
 else:
     # Load dataset
-    all_df = pd.read_csv(csv_path)
+    all_df = pd.read_csv('main_data.csv')
 
     # Sorting & Changing Data Type
     all_df['dteday'] = pd.to_datetime(all_df['dteday'])
@@ -32,6 +23,7 @@ else:
 
     # Helper Functions
     def create_daily_users_df(df):
+        df['total'] = df['casual'] + df['registered']
         return df.groupby('dteday').agg({
             'registered': 'sum',
             'casual': 'sum',
@@ -42,6 +34,7 @@ else:
         return df[['casual', 'registered']].sum()
 
     def create_grouped_df(df, group_col):
+        df['total'] = df['casual'] + df['registered']
         return df.groupby(by=group_col).agg({
             'registered': 'sum',
             'casual': 'sum',
@@ -54,8 +47,8 @@ else:
             .profile-header {
                 font-size: 24px;
                 font-weight: bold;
-                margin-bottom: 15px;
-                padding-bottom: 8px;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
                 border-bottom: 2px solid #555;
                 color: white;
                 text-align: center;
@@ -64,11 +57,11 @@ else:
             .info {
                 text-align: left;
                 font-size: 16px;
-                margin-top: 10px;
+                margin-top: 15px;
                 color: white;
             }
             .info div {
-                margin-bottom: 8px;
+                margin-bottom: 10px;
             }
             .info span {
                 font-weight: bold;
@@ -80,12 +73,14 @@ else:
                 margin: auto;
                 width: 100%;
                 max-width: 200px;
+                margin-bottom: 20px;
             }
             .social-container {
                 display: flex;
                 justify-content: center;
                 gap: 15px;
-                margin-top: 15px;
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
             .social-box {
                 width: 70px;
@@ -109,6 +104,32 @@ else:
                 width: 100%;
                 height: 100%;
             }
+            .centered-title {
+                text-align: center;
+                color: white;
+                margin-bottom: 30px;
+            }
+            .centered-metric {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 30px;
+            }
+            .visualization-section {
+                margin-bottom: 40px;
+            }
+            .footer {
+                text-align: center;
+                background-color: #808080;
+                padding: 15px;
+                border-radius: 10px;
+                color: white;
+                margin-top: 40px;
+            }
+            .tab-content {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
         </style>
     """, unsafe_allow_html=True)
 
@@ -117,11 +138,11 @@ else:
         st.markdown('<div class="profile-header">PROFILE INFORMATION</div>', unsafe_allow_html=True)
         
         # Profile Picture
-        if not os.path.exists(user_image_path):
-            st.error(f"File 'user.jpg' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
+        if not os.path.exists('user.jpg'):
+            st.error("File 'user.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
         else:
             try:
-                st.sidebar.image(user_image_path, caption="Profile Picture", use_container_width=True)
+                st.sidebar.image("user.jpg", caption="Profile Picture", use_container_width=True)
             except Exception as e:
                 st.error(f"Error loading image: {e}")
 
@@ -134,7 +155,7 @@ else:
             </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("<hr style='border: 1px solid #555; margin: 10px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #555; margin: 20px 0;'>", unsafe_allow_html=True)
 
         # Date Range
         min_date, max_date = all_df['dteday'].min(), all_df['dteday'].max()
@@ -148,7 +169,7 @@ else:
         if selected_weather != 'All':
             main_df = main_df[main_df['weathersit'] == selected_weather]
 
-        st.markdown("<hr style='border: 1px solid #555; margin: 10px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #555; margin: 20px 0;'>", unsafe_allow_html=True)
         
         # Social Media
         st.markdown("""
@@ -167,26 +188,27 @@ else:
         """, unsafe_allow_html=True)
 
     # Calculate total rentals
+    main_df['total'] = main_df['casual'] + main_df['registered']
     total_rentals = main_df['total'].sum()
 
     # Main title
     st.markdown("""
-        <h2 style="text-align: center; color: white;">📊 Analysis Bike Sharing Dataset 🚲</h2>
+        <h2 class="centered-title">📊 Analysis Bike Sharing Dataset 🚲</h2>
     """, unsafe_allow_html=True)
 
     # Display profile image
-    if not os.path.exists(bike_image_path):
-        st.error(f"File 'bike-dataset.jpg' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
+    if not os.path.exists('bike-dataset.jpg'):
+        st.error("File 'bike-dataset.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
     else:
         try:
-            st.image(Image.open(bike_image_path), use_container_width=True, caption="Bike Sharing Dataset")
+            st.image(Image.open('bike-dataset.jpg'), use_container_width=True, caption="Bike Sharing Dataset")
         except Exception as e:
             st.error(f"Error loading image: {e}")
 
     # Show total rentals metric
     st.markdown(
         f"""
-        <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="centered-metric">
             <h3 style="margin-right: 10px;">Total Penyewaan:</h3>
             <h3 style="color: white; margin: 0;">{total_rentals}</h3>
         </div>
@@ -195,12 +217,13 @@ else:
     )
 
     # Visualize Question 1: Impact of Temperature, Humidity, and Windspeed
+    st.markdown("### <div class='centered-title'>Pengaruh Suhu, Kelembapan, dan Kecepatan Angin terhadap Penyewaan Sepeda</div>", unsafe_allow_html=True)
     plt.figure(figsize=(12, 6))
 
     # Scatter plot for temperature
     plt.subplot(1, 3, 1)
     sns.scatterplot(data=main_df, x='temp', y='total', hue='weathersit', palette='viridis', alpha=0.6)
-    plt.title('Pengaruh Suhu ')
+    plt.title('Pengaruh Suhu')
     plt.xlabel('Suhu')
     plt.ylabel('Jumlah Penyewaan Sepeda')
     plt.grid()
@@ -216,19 +239,22 @@ else:
     # Scatter plot for windspeed
     plt.subplot(1, 3, 3)
     sns.scatterplot(data=main_df, x='windspeed', y='total', hue='weathersit', palette='viridis', alpha=0.6)
-    plt.title('Pengaruh Kecepatan Angin ')
+    plt.title('Pengaruh Kecepatan Angin')
     plt.xlabel('Kecepatan Angin')
     plt.ylabel('Jumlah Penyewaan Sepeda')
     plt.grid()
 
     st.pyplot(plt)
 
-    # Visualize Holiday Rentals
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(data=main_df, x='holiday', y='total', hue='holiday', palette='pastel', legend=False)
-    plt.title('Distribusi Jumlah Penyewaan Sepeda pada Hari Libur vs Bukan Hari Libur')
+    # Visualize Question 2: Average Rentals on Holidays vs Non-Holidays
+    st.markdown("### <div class='centered-title'>Rata-rata Jumlah Penyewaan Sepeda pada Hari Libur vs Bukan Hari Libur</div>", unsafe_allow_html=True)
+    holiday_avg = main_df.groupby('holiday')['total'].mean()
+    
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x=holiday_avg.index, y=holiday_avg.values, hue=holiday_avg.index, palette='pastel', legend=False)
+    plt.title('Rata-rata Jumlah Penyewaan Sepeda pada Hari Libur vs Bukan Hari Libur')
     plt.xlabel('Hari Libur')
-    plt.ylabel('Jumlah Penyewaan Sepeda')
+    plt.ylabel('Rata-rata Jumlah Penyewaan Sepeda')
     plt.xticks(ticks=[0, 1], labels=['Bukan Hari Libur', 'Hari Libur'])
     plt.grid()
 
@@ -236,10 +262,10 @@ else:
 
     # Footer Welcome Message
     st.markdown("""
-        <div style="text-align: center; background-color: #808080; padding: 10px; border-radius: 10px; color: white;">
+        <div class="footer">
             <h3>🚲📊 Welcome to Bike Sharing Dashboard! 📈📍</h3>
         </div>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
     # Define tabs for additional content
     tab1, tab2 = st.tabs(["The Rationale Behind the Dashboard", "Overview of the Bike Sharing Dataset"])
@@ -265,10 +291,12 @@ else:
 
         st.markdown("""
             <p class="justify-text">
-            Tujuan dari pengembangan dashboard proyek akhir untuk analisis dataset sepeda ini adalah untuk memenuhi persyaratan proyek akhir dalam program pembelajaran Analisis Data dari Dicoding.  
-            Dashboard ini berfungsi sebagai platform komprehensif untuk menyajikan wawasan utama, tren, dan pola yang diperoleh dari dataset, memastikan pendekatan yang terstruktur dan berbasis data dalam pengambilan keputusan analitis.  
-            Dengan memanfaatkan berbagai teknik visualisasi data, dashboard ini secara efektif mengkomunikasikan temuan, memungkinkan pemahaman yang lebih mendalam dan interpretasi dataset yang lebih akurat.  
-            Selain itu, proyek ini bertujuan untuk meningkatkan keterampilan dalam pemrosesan data, visualisasi, dan interpretasi, memperkuat kemampuan analitis yang penting dalam pemecahan masalah berbasis data di dunia nyata.
+            Tujuan dari pengembangan dashboard proyek akhir untuk analisis dataset sepeda ini adalah untuk memenuhi persyaratan proyek akhir dalam program pembelajaran Analisis Data dari Dicoding. 
+            Dashboard ini berfungsi sebagai platform komprehensif untuk menyajikan wawasan utama, tren, dan pola yang diperoleh dari dataset, 
+            memastikan pendekatan yang terstruktur dan berbasis data dalam pengambilan keputusan analitis. Dengan memanfaatkan berbagai teknik visualisasi data, 
+            dashboard ini secara efektif mengkomunikasikan temuan, memungkinkan pemahaman yang lebih mendalam dan interpretasi dataset yang lebih akurat. Selain itu, 
+            proyek ini bertujuan untuk meningkatkan keterampilan dalam pemrosesan data, visualisasi, dan interpretasi,
+            memperkuat kemampuan analitis yang penting dalam pemecahan masalah berbasis data di dunia nyata.
             </p>
         """, unsafe_allow_html=True)
 
@@ -294,8 +322,13 @@ else:
 
         st.markdown("""
             <p class="justify-text">
-            Dataset ini menyediakan catatan rinci tentang jumlah penggunaan sepeda sewaan, baik secara per jam maupun harian, dalam sistem Capital Bike Share. Data ini mencakup periode dari tahun 2011 hingga 2012 dan menyertakan informasi kontekstual yang relevan, seperti kondisi cuaca, suhu, kelembapan, kecepatan angin, dan variasi musiman, yang dapat memengaruhi pola penyewaan sepeda.
-            Dengan menganalisis dataset ini, kita dapat memahami bagaimana faktor-faktor seperti cuaca, hari libur, dan musim memengaruhi jumlah penyewaan sepeda. Visualisasi yang disajikan dalam dashboard ini membantu mengidentifikasi tren dan pola penggunaan sepeda, sehingga dapat memberikan wawasan yang berguna untuk pengambilan keputusan operasional dan strategis dalam manajemen sistem bike sharing.
+            Dataset ini menyediakan catatan rinci tentang jumlah penggunaan sepeda sewaan, 
+            baik secara per jam maupun harian, dalam sistem Capital Bike Share. Data ini mencakup periode dari tahun 2011 hingga 2012 
+            dan menyertakan informasi kontekstual yang relevan, seperti kondisi cuaca, suhu, kelembapan, kecepatan angin, 
+            dan variasi musiman, yang dapat memengaruhi pola penyewaan sepeda. Dengan menganalisis dataset ini, 
+            kita dapat memahami bagaimana faktor-faktor seperti cuaca, hari libur, dan musim memengaruhi jumlah penyewaan sepeda. 
+            Visualisasi yang disajikan dalam dashboard ini membantu mengidentifikasi tren dan pola penggunaan sepeda, 
+            sehingga dapat memberikan wawasan yang berguna untuk pengambilan keputusan operasional dan strategis dalam manajemen sistem bike sharing.
             </p>
         """, unsafe_allow_html=True)
 
