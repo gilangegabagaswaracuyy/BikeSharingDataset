@@ -9,7 +9,7 @@ import os
 # Set theme
 sns.set_theme(style='dark')
 
-# Cek apakah file main_data.csv ada
+# Check if main_data.csv exists
 if not os.path.exists('main_data.csv'):
     st.error("File 'main_data.csv' tidak ditemukan. Pastikan file ada di direktori yang benar.")
 else:
@@ -111,7 +111,10 @@ else:
         if not os.path.exists('user.jpg'):
             st.error("File 'user.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
         else:
-            st.sidebar.image("user.jpg", caption="Profile Picture", use_container_width=True)
+            try:
+                st.sidebar.image("user.jpg", caption="Profile Picture", use_container_width=True)
+            except Exception as e:
+                st.error(f"Error loading image: {e}")
 
         # Profile Details
         st.markdown("""
@@ -166,7 +169,10 @@ else:
     if not os.path.exists('bike-dataset.jpg'):
         st.error("File 'bike-dataset.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
     else:
-        st.image(Image.open('bike-dataset.jpg'), use_container_width=True, caption="Bike Sharing Dataset")
+        try:
+            st.image(Image.open('bike-dataset.jpg'), use_container_width=True, caption="Bike Sharing Dataset")
+        except Exception as e:
+            st.error(f"Error loading image: {e}")
 
     # Show total rentals metric
     st.markdown(
