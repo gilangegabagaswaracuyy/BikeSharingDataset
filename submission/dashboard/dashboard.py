@@ -296,9 +296,8 @@ else:
         # Content in Indonesian
         st.markdown("""
             <p class="justify-text">
-            Dataset ini menyediakan catatan rinci tentang jumlah penggunaan sepeda sewaan, baik secara per jam maupun harian, dalam sistem Capital Bike Share.  
-            Data ini mencakup periode dari tahun 2011 hingga 2012 dan menyertakan informasi kontekstual yang relevan, seperti kondisi cuaca dan variasi musiman,  
-            yang dapat memengaruhi pola penyewaan sepeda.
+            Dataset ini menyediakan catatan rinci tentang jumlah penggunaan sepeda sewaan, baik secara per jam maupun harian, dalam sistem Capital Bike Share. Data ini mencakup periode dari tahun 2011 hingga 2012 dan menyertakan informasi kontekstual yang relevan, seperti kondisi cuaca, suhu, kelembapan, kecepatan angin, dan variasi musiman, yang dapat memengaruhi pola penyewaan sepeda.
+            Dengan menganalisis dataset ini, kita dapat memahami bagaimana faktor-faktor seperti cuaca, hari libur, dan musim memengaruhi jumlah penyewaan sepeda. Visualisasi yang disajikan dalam dashboard ini membantu mengidentifikasi tren dan pola penggunaan sepeda, sehingga dapat memberikan wawasan yang berguna untuk pengambilan keputusan operasional dan strategis dalam manajemen sistem bike sharing.
             </p>
         """, unsafe_allow_html=True)
 
