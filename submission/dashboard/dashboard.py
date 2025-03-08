@@ -9,12 +9,18 @@ import os
 # Set theme
 sns.set_theme(style='dark')
 
+# Get the current working directory
+current_dir = os.getcwd()
+
+# Construct the full path to the CSV file
+csv_path = os.path.join(current_dir, 'main_data.csv')
+
 # Check if main_data.csv exists
-if not os.path.exists('main_data.csv'):
-    st.error("File 'main_data.csv' tidak ditemukan. Pastikan file ada di direktori yang benar.")
+if not os.path.exists(csv_path):
+    st.error(f"File 'main_data.csv' tidak ditemukan di direktori: {current_dir}. Pastikan file ada di direktori yang benar.")
 else:
     # Load dataset
-    all_df = pd.read_csv('main_data.csv')
+    all_df = pd.read_csv(csv_path)
 
     # Sorting & Changing Data Type
     all_df['dteday'] = pd.to_datetime(all_df['dteday'])
@@ -108,11 +114,12 @@ else:
         st.markdown('<div class="profile-header">PROFILE INFORMATION</div>', unsafe_allow_html=True)
         
         # Profile Picture
-        if not os.path.exists('user.jpg'):
-            st.error("File 'user.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
+        user_image_path = os.path.join(current_dir, 'user.jpg')
+        if not os.path.exists(user_image_path):
+            st.error(f"File 'user.jpg' tidak ditemukan di direktori: {current_dir}. Pastikan file ada di direktori yang benar.")
         else:
             try:
-                st.sidebar.image("user.jpg", caption="Profile Picture", use_container_width=True)
+                st.sidebar.image(user_image_path, caption="Profile Picture", use_container_width=True)
             except Exception as e:
                 st.error(f"Error loading image: {e}")
 
@@ -166,11 +173,12 @@ else:
     """, unsafe_allow_html=True)
 
     # Display profile image
-    if not os.path.exists('bike-dataset.jpg'):
-        st.error("File 'bike-dataset.jpg' tidak ditemukan. Pastikan file ada di direktori yang benar.")
+    bike_image_path = os.path.join(current_dir, 'bike-dataset.jpg')
+    if not os.path.exists(bike_image_path):
+        st.error(f"File 'bike-dataset.jpg' tidak ditemukan di direktori: {current_dir}. Pastikan file ada di direktori yang benar.")
     else:
         try:
-            st.image(Image.open('bike-dataset.jpg'), use_container_width=True, caption="Bike Sharing Dataset")
+            st.image(Image.open(bike_image_path), use_container_width=True, caption="Bike Sharing Dataset")
         except Exception as e:
             st.error(f"Error loading image: {e}")
 
