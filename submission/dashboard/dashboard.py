@@ -9,15 +9,26 @@ import os
 # Set theme
 sns.set_theme(style='dark')
 
-# Define the base directory
-base_dir = '/mount/src/bikesharingdataset'
+# Debugging: Tampilkan direktori kerja saat ini
+st.write("Direktori kerja saat ini:", os.getcwd())
 
-# Construct the full path to the CSV file
-csv_path = os.path.join(base_dir, 'main_data.csv')
+# Define the base directory (sesuaikan dengan struktur folder Anda)
+base_dir = os.getcwd()  # Direktori kerja saat ini
+dashboard_dir = os.path.join(base_dir, "submission", "dashboard")  # Path ke folder dashboard
+
+# Path ke file CSV dan gambar
+csv_path = os.path.join(dashboard_dir, "main_data.csv")
+user_image_path = os.path.join(dashboard_dir, "user.jpg")
+bike_image_path = os.path.join(dashboard_dir, "bike-dataset.jpg")
+
+# Debugging: Tampilkan path yang digunakan
+st.write("Path ke main_data.csv:", csv_path)
+st.write("Path ke user.jpg:", user_image_path)
+st.write("Path ke bike-dataset.jpg:", bike_image_path)
 
 # Check if main_data.csv exists
 if not os.path.exists(csv_path):
-    st.error(f"File 'main_data.csv' tidak ditemukan di direktori: {base_dir}. Pastikan file ada di direktori yang benar.")
+    st.error(f"File 'main_data.csv' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
 else:
     # Load dataset
     all_df = pd.read_csv(csv_path)
@@ -114,9 +125,8 @@ else:
         st.markdown('<div class="profile-header">PROFILE INFORMATION</div>', unsafe_allow_html=True)
         
         # Profile Picture
-        user_image_path = os.path.join(base_dir, 'user.jpg')
         if not os.path.exists(user_image_path):
-            st.error(f"File 'user.jpg' tidak ditemukan di direktori: {base_dir}. Pastikan file ada di direktori yang benar.")
+            st.error(f"File 'user.jpg' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
         else:
             try:
                 st.sidebar.image(user_image_path, caption="Profile Picture", use_container_width=True)
@@ -173,9 +183,8 @@ else:
     """, unsafe_allow_html=True)
 
     # Display profile image
-    bike_image_path = os.path.join(base_dir, 'bike-dataset.jpg')
     if not os.path.exists(bike_image_path):
-        st.error(f"File 'bike-dataset.jpg' tidak ditemukan di direktori: {base_dir}. Pastikan file ada di direktori yang benar.")
+        st.error(f"File 'bike-dataset.jpg' tidak ditemukan di direktori: {dashboard_dir}. Pastikan file ada di direktori yang benar.")
     else:
         try:
             st.image(Image.open(bike_image_path), use_container_width=True, caption="Bike Sharing Dataset")
