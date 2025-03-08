@@ -9,7 +9,7 @@ from PIL import Image
 sns.set_theme(style='dark')
 
 # Load dataset
-all_df = pd.read_csv('main_data.csv')
+all_df = pd.read_csv('submission/dashboard/main_data.csv')
 
 # Sorting & Changing Data Type
 all_df['dteday'] = pd.to_datetime(all_df['dteday'])
