@@ -63,18 +63,18 @@ Dengan menggunakan dashboard ini, Anda dapat memvisualisasikan tren dan pola pen
 
 ## 🎯 Tujuan Proyek
 ```
-Analisis Data        : Memahami pola penggunaan sepeda berdasarkan waktu, cuaca, dan hari libur.
-Visualisasi          : Menyajikan data dalam bentuk grafik yang interaktif dan mudah dipahami.
-Pengambilan Keputusan: Memberikan wawasan untuk meningkatkan manajemen sistem bike sharing.
+Analisis Data         : Memahami pola penggunaan sepeda berdasarkan waktu, cuaca, dan hari libur.
+Visualisasi           : Menyajikan data dalam bentuk grafik yang interaktif dan mudah dipahami.
+Pengambilan Keputusan : Memberikan wawasan untuk meningkatkan manajemen sistem bike sharing.
 ```
 
 ## 📂 Struktur File
 ```
-dashboard.py               : File utama untuk menjalankan aplikasi Streamlit.
-main_data.csv              : Dataset utama yang digunakan untuk analisis.
-bike-dataset.jpg & user.jpg: Gambar yang digunakan dalam dashboard.
-day.csv & hour.csv         : Dataset tambahan untuk analisis lebih lanjut.
-```
+dashboard.py                : File utama untuk menjalankan aplikasi Streamlit.
+main_data.csv               : Dataset utama yang digunakan untuk analisis.
+bike-dataset.jpg & user.jpg : Gambar yang digunakan dalam dashboard.
+day.csv & hour.csv          : Dataset tambahan untuk analisis lebih lanjut.
+``` 
 
 ## 🙏 Terima Kasih
 
