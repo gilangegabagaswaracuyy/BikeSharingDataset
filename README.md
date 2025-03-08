@@ -54,26 +54,26 @@ Network URL: http://192.168.xx.xx:8501
 ## 📝 Deskripsi Proyek
 ```
 Proyek ini bertujuan untuk menganalisis dataset Bike Sharing yang mencakup data penggunaan sepeda sewaan dari tahun 2011 hingga 2012. Dataset ini menyediakan informasi rinci seperti:
-*Jumlah penyewaan sepeda per jam dan harian.
-*Kondisi cuaca (suhu, kelembapan, kecepatan angin).
-*Hari libur dan musim.
+Jumlah penyewaan sepeda per jam dan harian.
+Kondisi cuaca (suhu, kelembapan, kecepatan angin).
+Hari libur dan musim.
 ```
 Dengan menggunakan dashboard ini, Anda dapat memvisualisasikan tren dan pola penggunaan sepeda, serta memahami faktor-faktor yang memengaruhi penyewaan sepeda.
 
 
 ## 🎯 Tujuan Proyek
 ```
-*Analisis Data: Memahami pola penggunaan sepeda berdasarkan waktu, cuaca, dan hari libur.
-*Visualisasi: Menyajikan data dalam bentuk grafik yang interaktif dan mudah dipahami.
-*Pengambilan Keputusan: Memberikan wawasan untuk meningkatkan manajemen sistem bike sharing.
+Analisis Data: Memahami pola penggunaan sepeda berdasarkan waktu, cuaca, dan hari libur.
+Visualisasi: Menyajikan data dalam bentuk grafik yang interaktif dan mudah dipahami.
+Pengambilan Keputusan: Memberikan wawasan untuk meningkatkan manajemen sistem bike sharing.
 ```
 
 ## 📂 Struktur File
 ```
-*dashboard.py: File utama untuk menjalankan aplikasi Streamlit.
-*main_data.csv: Dataset utama yang digunakan untuk analisis.
-*bike-dataset.jpg & user.jpg: Gambar yang digunakan dalam dashboard.
-*day.csv & hour.csv: Dataset tambahan untuk analisis lebih lanjut.
+dashboard.py: File utama untuk menjalankan aplikasi Streamlit.
+main_data.csv : Dataset utama yang digunakan untuk analisis.
+bike-dataset.jpg & user.jpg: Gambar yang digunakan dalam dashboard.
+day.csv & hour.csv: Dataset tambahan untuk analisis lebih lanjut.
 ```
 
 ## 🙏 Terima Kasih
