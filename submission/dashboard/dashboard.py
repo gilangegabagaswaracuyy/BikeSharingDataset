@@ -9,9 +9,6 @@ import os
 # Set theme
 sns.set_theme(style='dark')
 
-# Debugging: Tampilkan direktori kerja saat ini
-st.write("Direktori kerja saat ini:", os.getcwd())
-
 # Define the base directory (sesuaikan dengan struktur folder Anda)
 base_dir = os.getcwd()  # Direktori kerja saat ini
 dashboard_dir = os.path.join(base_dir, "submission", "dashboard")  # Path ke folder dashboard
@@ -20,11 +17,6 @@ dashboard_dir = os.path.join(base_dir, "submission", "dashboard")  # Path ke fol
 csv_path = os.path.join(dashboard_dir, "main_data.csv")
 user_image_path = os.path.join(dashboard_dir, "user.jpg")
 bike_image_path = os.path.join(dashboard_dir, "bike-dataset.jpg")
-
-# Debugging: Tampilkan path yang digunakan
-st.write("Path ke main_data.csv:", csv_path)
-st.write("Path ke user.jpg:", user_image_path)
-st.write("Path ke bike-dataset.jpg:", bike_image_path)
 
 # Check if main_data.csv exists
 if not os.path.exists(csv_path):
